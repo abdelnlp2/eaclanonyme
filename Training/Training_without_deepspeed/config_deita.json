@@ -1,7 +1,7 @@
 {
   "model_name": "google/gemma-3-4b-it",
   "finetune_name": "gemma3-4b-FT-deita",
-  "dataset_name": "DarijaGreenAI/Deita_5k_darija3k7_english1k3_chat_template_2048token_train_val",
+  "dataset_name": "MathematicianNLPer/Deita_5k_darija3k7_english1k3_chat_template_2048token_train_val",
   "lora": {
     "r": 32,
     "lora_alpha": 64,
@@ -27,12 +27,13 @@
     "report_to": "wandb",
     "seed": 1015,
     "max_seq_length": 2048,
-    "hub_model_id": "AbderrahmanSkiredj1/gemma3-4b-FT-deita",
+    "hub_model_id": "MathematicianNLPer/gemma3-4b-FT-deita",
     "hub_private_repo": true
   },
   "wandb": {
-    "api_key": "dcfa9a84b552160498e604aafc0b83ecd86d1b87",
+    "api_key": "dcfa9blablablabla0b83ecd86d1b87",
     "project": "gemma3-deita-finetune",
     "run_name": "gemma3-4b-deita-sft-run"
   }
 }
+
