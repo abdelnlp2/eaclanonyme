@@ -6,8 +6,6 @@
 
 **GemMaroc** is an **open-source, instruction-tuned** Large Language Model for **Moroccan Arabic (Darija)**, built on **Gemma** and fine-tuned with an *efficient, low-carbon* methodology.
 
-In just **2.5 months** since its release (**May 22, 2025**), **GemMaroc** has been downloaded **16,733+ times** — proving the demand for inclusive AI that empowers underrepresented languages.
-
 ---
 
 ## 🚀 Highlights
@@ -49,15 +47,11 @@ To run the model locally in [LM Studio](https://lmstudio.ai):
 
 ```
 
-AbderrahmanSkiredj1/GemMaroc-27b-it-GGUF
+MathematicianNLPer/GemMaroc-27b-it-GGUF
 
 or
 
-AbderrahmanSkiredj1/GemMaroc-4b-tulu-Q4_K_M-GGUF
-
-or
-
-AbderrahmanSkiredj1/GemMaroc-4b-v1.5-Q4_K_M-GGUF
+MathematicianNLPer/GemMaroc-4b-tulu-Q4_K_M-GGUF
 
 ````
 
@@ -73,23 +67,6 @@ AbderrahmanSkiredj1/GemMaroc-4b-v1.5-Q4_K_M-GGUF
 * **Compute**: ≈50 GPU·h (H100), cost ≈ \$200
 * **Green AI**: ~26 kWh energy use (~10 kg CO₂e)
 
----
-
-## 📜 Citation
-
-If you use GemMaroc in your research, please cite:
-
-```bibtex
-@misc{skiredj2025gemmarocunlockingdarijaproficiency,
-      title={GemMaroc: Unlocking Darija Proficiency in LLMs with Minimal Data}, 
-      author={Abderrahman Skiredj and Ferdaous Azhari and Houdaifa Atou and Nouamane Tazi and Ismail Berrada},
-      year={2025},
-      eprint={2505.17082},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2505.17082}, 
-}
-````
 
 ---
 
