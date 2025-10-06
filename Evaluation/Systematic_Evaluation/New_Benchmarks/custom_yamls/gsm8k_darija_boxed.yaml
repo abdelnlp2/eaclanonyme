@@ -1,7 +1,7 @@
 tag:
   - math_word_problems
 task: gsm8k_darija_boxed
-dataset_path: AbderrahmanSkiredj1/openai_gsm8k_test_darija
+dataset_path: MathematicianNLPer/openai_gsm8k_test_darija
 output_type: generate_until
 training_split: train
 fewshot_split: train
