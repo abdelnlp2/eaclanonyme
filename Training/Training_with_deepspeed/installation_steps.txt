@@ -1,0 +1,84 @@
+(base) [abderrahman.skiredj@slurm-a100-gpu-h22a2-u10-sv greenda]$ nvidia-smi
+Tue Aug 12 17:21:06 2025       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.247.01             Driver Version: 535.247.01   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  | 00000000:41:00.0 Off |                    0 |
+| N/A   26C    P0              57W / 500W |      0MiB / 81920MiB |      0%      Default |
+|                                         |                      |             Disabled |
++-----------------------------------------+----------------------+----------------------+
+|   1  NVIDIA A100-SXM4-80GB          On  | 00000000:81:00.0 Off |                    0 |
+| N/A   28C    P0              57W / 500W |      0MiB / 81920MiB |      0%      Default |
+|                                         |                      |             Disabled |
++-----------------------------------------+----------------------+----------------------+
+
+(base) [abderrahman.skiredj@slurm-a100-gpu-h22a2-u14-sv greenda]$ nvcc -V
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2023 NVIDIA Corporation
+Built on Tue_Jun_13_19:16:58_PDT_2023
+Cuda compilation tools, release 12.2, V12.2.91
+Build cuda_12.2.r12.2/compiler.32965470_0
+
+(I ran this before:
+module purge
+module load CUDA/12.2.0
+)
+
+# fresh env (Python 3.10 plays nicest with this combo)
+conda create --name deepspeedenv python=3.10 -y
+conda activate deepspeedenv
+
+# build tools DeepSpeed JIT needs
+conda install -y -c conda-forge cmake ninja git git-lfs
+
+# keep pip tooling recent
+pip install --upgrade pip setuptools wheel
+
+# PyTorch + CUDA 12.1 wheels that work with your 12.2 driver
+pip install --index-url https://download.pytorch.org/whl/cu121 torch==2.5.1+cu121 torchvision==0.20.1+cu121
+
+pip install transformers==4.55.0 accelerate==1.10.0 deepspeed==0.17.4 trl==0.22.0.dev0 peft==0.17.0 liger-kernel==0.6.1 sentencepiece
+
+# (optional but handy) sanity checks
+python - << 'PY'
+import torch, transformers, accelerate, deepspeed, trl, peft, datasets
+print("torch:", torch.__version__)
+print("transformers:", transformers.__version__)
+print("accelerate:", accelerate.__version__)
+print("deepspeed:", deepspeed.__version__)
+print("trl:", trl.__version__)
+print("peft:", peft.__version__)
+print("datasets:", datasets.__version__)
+PY
+
+Result:
+
+torch: 2.5.1+cu121
+transformers: 4.55.0
+accelerate: 1.10.0
+deepspeed: 0.17.4
+trl: 0.22.0.dev0
+peft: 0.17.0
+datasets: 4.0.0
+
+# To Make sure DeepSpeed works properly, you can execute the dummy test_deepspeed.py script, just run:
+
+deepspeed --num_gpus 1 dummy_test_deepspeed.py
+
+
+
+# a) make Triton cache local (avoids NFS hiccups)
+export TRITON_CACHE_DIR="${SLURM_TMPDIR:-/tmp}/$USER/triton_cache"; mkdir -p "$TRITON_CACHE_DIR"   # NFS -> local. :contentReference[oaicite:5]{index=5}
+
+# b) make NCCL fail fast instead of hanging; add debug
+export NCCL_ASYNC_ERROR_HANDLING=1                                    # crash on comm timeouts instead of silent hang
+export NCCL_DEBUG=INFO                                                 # NCCL logging
+export TORCH_DISTRIBUTED_DEBUG=DETAIL                                  # PyTorch DDP logging
+export NCCL_IB_DISABLE=1                                               # single-node: avoid IB path if present
+# (optional while debugging, slower)
+# export NCCL_BLOCKING_WAIT=1                                          # may slow training but surfaces errors quicker. :contentReference[oaicite:6]{index=6}
+
