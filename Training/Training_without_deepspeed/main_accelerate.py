@@ -167,10 +167,11 @@ def main():
     )
     '''
     try:
-        merged.push_to_hub(f'AbderrahmanSkiredj1/{cfg["finetune_name"]}_merged', private=True)
+        merged.push_to_hub(f'MathematicianNLPer/{cfg["finetune_name"]}_merged', private=True)
     except:
-        merged.push_to_hub(f'AbderrahmanSkiredj1/{cfg["finetune_name"]}_merged', private=True)
+        merged.push_to_hub(f'MathematicianNLPer/{cfg["finetune_name"]}_merged', private=True)
         
 
 if __name__ == "__main__":
     main()
+
