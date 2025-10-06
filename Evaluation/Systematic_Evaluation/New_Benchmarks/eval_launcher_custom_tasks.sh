@@ -5,7 +5,7 @@ echo "Start time: $(date +%Y-%m-%d-%H-%M-%S)"
 # --------- Réglages ----------------------------------------------------------
 
 
-model_name='GemMaroc/GemMaroc-27b-it'
+model_name='MathematicianNLPer/GemMaroc-27b-it'
 
 
 model_short=${model_name##*/}
