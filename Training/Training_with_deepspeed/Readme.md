@@ -11,7 +11,7 @@ see installation_steps.txt
 
 accelerate launch --config_file examples/accelerate_configs/deepspeed_zero3.yaml sft.py \
     --model_name_or_path google/gemma-3-27b-it \
-    --dataset_name GemMaroc/TULU-3-50k-darija-english \
+    --dataset_name MathematicianNLPer/TULU-3-50k-darija-english \
     --learning_rate 4e-4 \
     --lr_scheduler_type cosine \
     --max_grad_norm 0.3 \
@@ -39,6 +39,6 @@ accelerate launch --config_file examples/accelerate_configs/deepspeed_zero3.yaml
     --attn_implementation eager \
     --use_liger_kernel \
     --report_to wandb \
-    --hub_model_id DarijaGreenAI/gemma3-27b-finetuning \
+    --hub_model_id MathematicianNLPer/gemma3-27b-finetuning \
     --hub_private_repo true \
     --push_to_hub
