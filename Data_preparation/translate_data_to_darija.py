@@ -1,6 +1,6 @@
 from datasets import load_dataset
 
-data = load_dataset('AbderrahmanSkiredj1/xsample-tulu-3-mig-darija-split-31k3-tobe-translated', split="train")
+data = load_dataset('MathematicianNLPer/xsample-tulu-3-mig-darija-split-31k3-tobe-translated', split="train")
 import time
 import copy
 import google.generativeai as genai
